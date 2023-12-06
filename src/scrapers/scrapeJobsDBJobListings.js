@@ -1,12 +1,19 @@
 const puppeteer = require('puppeteer');
 const { saveToFile } = require('../utils/fileUtils');
 
-const scrapeJobsDBJobListings = async (maxPages = 5) => { 
+const scrapeJobsDBJobListings = async (maxPages = 1) => { 
     let browser;
     let jobUrls = []; 
     try {
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            args: [`--proxy-server:pr.oxylabs.io:7777`]
+        });
         const page = await browser.newPage();
+        await page.authenticate({
+            username: 'airascraper',
+            password: 'Blockchainlabs123'
+        });
+        
         let hasNextPage = true;
         let currentPage = 1;
 

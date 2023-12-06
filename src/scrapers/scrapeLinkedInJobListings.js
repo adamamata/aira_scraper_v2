@@ -3,6 +3,7 @@ const { saveToFile } = require('../utils/fileUtils');
 
 const scrapeLinkedInJobListings = async () => {
     let browser;
+    let jobListings = [];
     try {
         browser = await puppeteer.launch({
             args: [`--proxy-server:pr.oxylabs.io:7777`]
@@ -17,7 +18,6 @@ const scrapeLinkedInJobListings = async () => {
         await page.goto('https://www.linkedin.com/jobs/jobs-in-thailand?keywords=&location=Thailand&locationId=&geoId=105146118&f_TPR=r86400&position=1&pageNum=0', { waitUntil: 'networkidle0' });
         await page.waitForSelector('.job-search-card', { timeout: 60000 });
 
-        let jobListings = [];
         let totalListings = 0;
         const maxListings = 100;
 
@@ -54,6 +54,7 @@ const scrapeLinkedInJobListings = async () => {
             totalListings = jobListings.length;
 
             saveToFile('./data/linkedIn/jobListings.json', jobListings);
+            console.log(`${totalListings} Job URLs saved to ./data/linkedIn/jobListings.json `); // Console log after saving
 
             if (totalListings >= maxListings) {
                 break; // Exit the loop if maximum listings are reached
