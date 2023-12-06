@@ -59,6 +59,7 @@ const getJobsDBHTML = async () => {
         }
 
         saveToFile('./data/jobsDB/extractedContent.json', extractedContents);
+        console.log(`Saved ${extractedContents.length} jobs to JobsDB file.`)
     }
 
     } catch (error) {

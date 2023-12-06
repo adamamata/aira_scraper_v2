@@ -19,7 +19,7 @@ const scrapeLinkedInJobListings = async () => {
         await page.waitForSelector('.job-search-card', { timeout: 60000 });
 
         let totalListings = 0;
-        const maxListings = 100;
+        const maxListings = 1000;
 
         while (totalListings < maxListings) {
             await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));

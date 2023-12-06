@@ -29,9 +29,9 @@ const runJobsDB = async () => {
   }
 };
 
-// runLinkedIn();
-// runJobsDB();
+runLinkedIn();
+runJobsDB();
 
 //Schedule to run once a day at midnight
-cron.schedule('0 0 * * *', runLinkedIn);
-cron.schedule('0 0 * * *', runJobsDB);
+// cron.schedule('0 0 * * *', runLinkedIn);
+// cron.schedule('0 0 * * *', runJobsDB);

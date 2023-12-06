@@ -78,6 +78,7 @@ const getLinkedInHTML = async () => {
             }
         
             saveToFile('./data/linkedIn/extractedContent.json', extractedContents)
+            console.log(`Saved ${extractedContents.length} to LinkedIn file.`)
         }
 
     } catch (error) {

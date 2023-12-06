@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { saveToFile } = require('../utils/fileUtils');
 
-const scrapeJobsDBJobListings = async (maxPages = 20) => { 
+const scrapeJobsDBJobListings = async (maxPages = 50) => { 
     let browser;
     let jobUrls = []; 
     try {
