@@ -10,8 +10,8 @@ const scrapeJobsDBJobListings = async (maxPages = 50) => {
         });
         const page = await browser.newPage();
         await page.authenticate({
-            username: 'airascraper',
-            password: 'Blockchainlabs123'
+            username: process.env.OXYLABS_USER,
+            password: process.env.OXYLABS_PASSWORD
         });
         
         let hasNextPage = true;

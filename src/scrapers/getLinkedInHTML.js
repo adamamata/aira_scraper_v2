@@ -35,8 +35,8 @@ const getLinkedInHTML = async () => {
         });
         const page = await browser.newPage(); 
         await page.authenticate({
-            username: 'airascraper',
-            password: 'Blockchainlabs123'
+            username: process.env.OXYLABS_USER,
+            password: process.env.OXYLABS_PASSWORD
         });
 
         const extractedContents = []; // Initialize as an array
@@ -77,7 +77,7 @@ const getLinkedInHTML = async () => {
                 }
             }
         
-            saveToFile('./data/linkedIn/extractedContent.json', extractedContents)
+            saveToFile('./data/linkedIn/LinkedIn_extractedContent.json', extractedContents)
             console.log(`Saved ${extractedContents.length} to LinkedIn file.`)
         }
 
@@ -85,7 +85,7 @@ const getLinkedInHTML = async () => {
         console.log(error)
     } finally {
         await browser.close();
-        saveToFile('./data/linkedIn/extractedContent.json', extractedContents);
+        saveToFile('./data/linkedIn/LinkedIn_extractedContent.json', extractedContents);
         console.log('Saved extracted content to extractedContent.json');
     }
 };

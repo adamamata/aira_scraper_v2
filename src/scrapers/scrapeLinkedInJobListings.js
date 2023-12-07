@@ -11,8 +11,8 @@ const scrapeLinkedInJobListings = async () => {
 
         const page = await browser.newPage();
         await page.authenticate({
-            username: 'airascraper',
-            password: 'Blockchainlabs123'
+            username: process.env.OXYLABS_USER,
+            password: process.env.OXYLABS_PASSWORD
         });
 
         await page.goto('https://www.linkedin.com/jobs/jobs-in-thailand?keywords=&location=Thailand&locationId=&geoId=105146118&f_TPR=r86400&position=1&pageNum=0', { waitUntil: 'networkidle0' });

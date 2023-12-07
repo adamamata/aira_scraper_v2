@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { scrapeLinkedInJobListings } = require('./scrapers/scrapeLinkedInJobListings');
 const { getLinkedInHTML } = require('./scrapers/getLinkedInHTML');
 const { scrapeJobsDBJobListings } = require('./scrapers/scrapeJobsDBJobListings');

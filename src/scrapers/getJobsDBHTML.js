@@ -20,8 +20,8 @@ const getJobsDBHTML = async () => {
         });
         const page = await browser.newPage();
         await page.authenticate({
-            username: 'airascraper',
-            password: 'Blockchainlabs123'
+            username: process.env.OXYLABS_USER,
+            password: process.env.OXYLABS_PASSWORD
         });
 
         const extractedContents = [];
@@ -58,7 +58,7 @@ const getJobsDBHTML = async () => {
             }
         }
 
-        saveToFile('./data/jobsDB/extractedContent.json', extractedContents);
+        saveToFile('./data/jobsDB/JobsDB_extractedContent.json', extractedContents);
         console.log(`Saved ${extractedContents.length} jobs to JobsDB file.`)
     }
 
@@ -66,7 +66,7 @@ const getJobsDBHTML = async () => {
         console.log(error)
     } finally {
         await browser.close();
-        saveToFile('./data/jobsDB/extractedContent.json', extractedContents);
+        saveToFile('./data/jobsDB/JobsDB_extractedContent.json', extractedContents);
     }
 }
 

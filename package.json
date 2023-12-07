@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@azure/storage-blob": "^12.17.0",
     "dotenv": "^16.3.1",
     "node-cron": "^3.0.3",
     "puppeteer": "^21.5.2",
