@@ -3,16 +3,21 @@ const { scrapeLinkedInJobListings } = require('./scrapers/scrapeLinkedInJobListi
 const { getLinkedInHTML } = require('./scrapers/getLinkedInHTML');
 const { scrapeJobsDBJobListings } = require('./scrapers/scrapeJobsDBJobListings');
 const { getJobsDBHTML } = require('./scrapers/getJobsDBHTML');
+const { uploadToAzureBlobStorage } = require('./utils/uploadToAzureBlobStorage');
 const cron = require('node-cron');
 
 // Main function to run the application
 const runLinkedIn = async () => {
   try {
-    console.log('Starting job listings scraping (LinkedIn)...');
-    await scrapeLinkedInJobListings();
-    console.log('Scraping complete. Now starting to get HTML content (LinkedIn)...');
-    await getLinkedInHTML();
-    console.log('HTML content retrieval complete (LinkedIn).');
+    // console.log('Starting job listings scraping (LinkedIn)...');
+    // await scrapeLinkedInJobListings();
+    // console.log('Scraping complete. Now starting to get HTML content (LinkedIn)...');
+    // await getLinkedInHTML();
+    // console.log('HTML content retrieval complete (LinkedIn). Now uploading to blob storage');
+    const localFilePath = './data/linkedIn/LinkedIn_extractedContent.json';
+    const containerName = 'airadevscraper';
+    const blobName = 'linkedInListings.json';
+    await uploadToAzureBlobStorage(localFilePath, containerName, blobName);
   } catch (error) {
     console.error('An error occurred during run:', error);
   }
@@ -20,11 +25,15 @@ const runLinkedIn = async () => {
 
 const runJobsDB = async () => {
   try {
-    console.log('Starting job listings scraping (JobsDB)...');
-    await scrapeJobsDBJobListings();
-    console.log('Scraping complete. Now starting to get HTML content (JobsDB)...');
-    await getJobsDBHTML();
-    console.log('HTML content retrieval complete (JobsDB).');
+    // console.log('Starting job listings scraping (JobsDB)...');
+    // await scrapeJobsDBJobListings();
+    // console.log('Scraping complete. Now starting to get HTML content (JobsDB)...');
+    // await getJobsDBHTML();
+    // console.log('HTML content retrieval complete (JobsDB). Now uploading to blob storage');
+    const localFilePath = './data/linkedIn/LinkedIn_extractedContent.json';
+    const containerName = 'airadevscraper';
+    const blobName = 'jobsDBListings.json';
+    await uploadToAzureBlobStorage(localFilePath, containerName, blobName);
   } catch (error) {
     console.error('An error occurred during run:', error);
   }
