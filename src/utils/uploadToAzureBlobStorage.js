@@ -24,8 +24,8 @@ async function uploadToAzureBlobStorage(localFilePath, containerName, originalBl
         const formattedTime = `${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}`;
         const formattedDateTime = `${formattedDate}T${formattedTime}`;
 
-        // Append the date and time to the blob name
-        const blobName = `${originalBlobName}-${formattedDateTime}.json`;
+        // Insert the date and time before the file extension
+        const blobName = originalBlobName.replace(/\.json$/, `-${formattedDateTime}.json`);
 
         // Get a block blob client
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
