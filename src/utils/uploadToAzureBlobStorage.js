@@ -1,7 +1,7 @@
 const { BlobServiceClient } = require('@azure/storage-blob');
 require('dotenv').config();
 
-async function uploadToAzureBlobStorage(localFilePath, containerName, blobName) {
+async function uploadToAzureBlobStorage(localFilePath, containerName, originalBlobName) {
     try {
         // Retrieve the connection string from environment variables
         const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING; 
@@ -17,6 +17,15 @@ async function uploadToAzureBlobStorage(localFilePath, containerName, blobName) 
 
         // Create the container if it does not exist
         await containerClient.createIfNotExists();
+
+        // Format the current date and time
+        const now = new Date();
+        const formattedDate = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        const formattedTime = `${now.getHours()}-${now.getMinutes()}-${now.getSeconds()}`;
+        const formattedDateTime = `${formattedDate}T${formattedTime}`;
+
+        // Append the date and time to the blob name
+        const blobName = `${originalBlobName}-${formattedDateTime}.json`;
 
         // Get a block blob client
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
