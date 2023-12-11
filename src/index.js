@@ -41,6 +41,7 @@ const runJobsDB = async () => {
 
 // runLinkedIn();
 // runJobsDB();
+//Test
 
 //Schedule to run once a day at midnight
 cron.schedule('0 0 * * *', runLinkedIn);
