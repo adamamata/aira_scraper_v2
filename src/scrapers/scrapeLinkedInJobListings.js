@@ -6,10 +6,12 @@ const scrapeLinkedInJobListings = async () => {
     let jobListings = [];
     try {
         browser = await puppeteer.launch({
+            headless: 'new',
             args: [
                 `--proxy-server:pr.oxylabs.io:7777`,
-                `--no-sandbox`
-            ]
+                `--no-sandbox`,
+            ],
+            // executablePath: '/usr/bin/chromium-browser'
         });
 
         const page = await browser.newPage();

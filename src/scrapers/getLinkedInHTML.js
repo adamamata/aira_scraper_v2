@@ -29,12 +29,16 @@ const getLinkedInHTML = async () => {
     const chunkSize = 5;
     const chunks = chunkArray(jobListings, chunkSize);
 
+    let browser;
+
     try {
-        const browser = await puppeteer.launch({
+        browser = await puppeteer.launch({
+            headless: 'new',
             args: [
                 `--proxy-server:pr.oxylabs.io:7777`,
-                `--no-sandbox`
-            ]
+                `--no-sandbox`,
+            ],
+            // executablePath: '/usr/bin/chromium-browser'
         });
         const page = await browser.newPage(); 
         await page.authenticate({

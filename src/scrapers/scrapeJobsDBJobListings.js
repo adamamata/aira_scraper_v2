@@ -6,10 +6,12 @@ const scrapeJobsDBJobListings = async (maxPages = 50) => {
     let jobUrls = []; 
     try {
         browser = await puppeteer.launch({
+            headless: 'new',
             args: [
                 `--proxy-server:pr.oxylabs.io:7777`,
-                `--no-sandbox`
-            ]
+                `--no-sandbox`,
+            ],
+            // executablePath: '/usr/bin/chromium-browser'
         });
         const page = await browser.newPage();
         await page.authenticate({
