@@ -1,10 +1,16 @@
+//Imports
 require('dotenv').config();
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+const cron = require('node-cron');
+
+//Function imports 
 const { scrapeLinkedInJobListings } = require('./scrapers/scrapeLinkedInJobListings');
 const { getLinkedInHTML } = require('./scrapers/getLinkedInHTML');
 const { scrapeJobsDBJobListings } = require('./scrapers/scrapeJobsDBJobListings');
 const { getJobsDBHTML } = require('./scrapers/getJobsDBHTML');
 const { uploadToAzureBlobStorage } = require('./utils/uploadToAzureBlobStorage');
-const cron = require('node-cron');
 
 // Main function to run the application
 const runLinkedIn = async () => {
@@ -39,9 +45,31 @@ const runJobsDB = async () => {
   }
 };
 
-// runLinkedIn();
-// runJobsDB();
-//Test
+//Express routes
+app.get('/runLinkedIn', async (req, res) => {
+  try {
+      await runLinkedIn();
+      res.send('LinkedIn scraping and uploading process completed successfully.');
+  } catch (error) {
+      console.error('Error in /runLinkedIn endpoint:', error);
+      res.status(500).send('Error occurred while running LinkedIn process.');
+  }
+});
+
+app.get('/runJobsDB', async (req, res) => {
+  try {
+      await runJobsDB();
+      res.send('JobsDB scraping and uploading process completed successfully.');
+  } catch (error) {
+      console.error('Error in /runJobsDB endpoint:', error);
+      res.status(500).send('Error occurred while running JobsDB process.');
+  }
+});
+
+// Start the Express server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
 
 //Schedule to run once a day at midnight
 cron.schedule('0 0 * * *', runLinkedIn);
